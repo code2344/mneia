@@ -5,26 +5,27 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "db:tunnel": "ssh -N -T -o ExitOnForwardFailure=yes -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -L 127.0.0.1:15433:127.0.0.1:5433 services",
+    "dev:with-db": "concurrently --kill-others-on-fail \"npm run db:tunnel\" \"npm run dev\"",
     "build": "tsc",
     "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
-    "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
+    "argon2": "^0.45.2",
     "cors": "^2.8.6",
     "dotenv": "^18.0.10",
-    "express": "^5.3.0",
-    "pg": "^8.23.1"
+    "express": "^5.3.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
-    "prisma": "^7.10.1",
+    "prisma": "^8.0.0-rc.33",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
