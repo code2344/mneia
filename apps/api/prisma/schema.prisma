@@ -106,7 +106,7 @@ model subjects {
 model users {
   id            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name          String
-  username      String
+  first_name    String
   email         String
   password_hash String
   created_at    DateTime   @default(now()) @db.Timestamptz(6)
