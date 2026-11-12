@@ -12,8 +12,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, CalendarDaysIcon, LibraryIcon, ClipboardCheckIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon } from "lucide-react"
-import { useAuth } from "@/auth/auth-context";
+import { LayoutDashboardIcon, ListIcon, ChartBarIcon, CalendarDaysIcon, LibraryIcon, ClipboardCheckIcon, Settings2Icon, CircleHelpIcon, SearchIcon, CommandIcon } from "lucide-react"
+import { useAuth } from "@/auth/use-auth";
 
 
 const data = {
@@ -24,7 +24,7 @@ const data = {
           {
             title: "Dashboard",
             url: "/dashboard",
-            icon: <LayoutDashboardIcon />,
+            icon: LayoutDashboardIcon,
           },
         ],
       },
@@ -34,12 +34,12 @@ const data = {
           {
             title: "Review queue",
             url: "/reviews",
-            icon: <ListIcon />,
+            icon: ListIcon,
           },
           {
             title: "My decks",
             url: "/decks",
-            icon: <LibraryIcon />,
+            icon: LibraryIcon,
           },
         ],
       },
@@ -49,7 +49,7 @@ const data = {
           {
             title: "Assessments",
             url: "/assessments",
-            icon: <ClipboardCheckIcon />,
+            icon: ClipboardCheckIcon,
           },
         ],
       },
@@ -59,70 +59,17 @@ const data = {
           {
             title: "Progress",
             url: "/progress",
-            icon: <ChartBarIcon />,
+            icon: ChartBarIcon,
           },
           {
             title: "Study plan",
             url: "/study-plan",
-            icon: <CalendarDaysIcon />,
+            icon: CalendarDaysIcon,
           },
         ],
       },
   ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: (
-        <CameraIcon />
-      ),
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: (
-        <FileTextIcon />
-      ),
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: (
-        <FileTextIcon />
-      ),
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
+  
   navSecondary: [
     {
       title: "Settings",

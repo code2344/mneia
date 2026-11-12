@@ -1,4 +1,4 @@
-import { useAuth } from "@/auth/auth-context";
+import { useAuth } from "@/auth/use-auth";
 
 function WelcomeSection() {
   const { user } = useAuth();

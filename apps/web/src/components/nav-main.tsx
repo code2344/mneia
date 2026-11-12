@@ -8,7 +8,15 @@ import {
 } from "@/components/ui/sidebar";
 
 import { PlayCircleIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router";
+
+type NavItem = {
+  title: string;
+  url: string;
+  icon?: React.ComponentType;
+  isActive?: boolean;
+};
 
 function SidebarNavLink({ item }: { item: NavItem }) {
   return (
@@ -16,9 +24,8 @@ function SidebarNavLink({ item }: { item: NavItem }) {
       {({ isActive }) => (
         <SidebarMenuButton
           isActive={isActive}
-          tooltip={item.title}
-        >
-          {item.icon}
+          tooltip={item.title}>
+          {item.icon && <item.icon />}
           <span>{item.title}</span>
         </SidebarMenuButton>
       )}
@@ -34,7 +41,7 @@ export function NavMain({
     items: {
       title: string;
       url: string;
-      icon?: React.ReactNode;
+      icon?: LucideIcon;
     }[];
   }[];
 }) {

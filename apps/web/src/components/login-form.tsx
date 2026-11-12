@@ -17,7 +17,8 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
-import { FormEvent, useState } from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 
