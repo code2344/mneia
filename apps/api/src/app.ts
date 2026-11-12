@@ -5,15 +5,20 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
+const allowedOrigins = process.env.WEB_ORIGINS
+  ?.split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean) ?? [];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
 app.use(express.json());
 app.use(cookieParser());
-
+  
 app.get("/health", (_request, response) => {
   response.json({
     status: "ok",
