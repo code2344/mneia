@@ -7,7 +7,7 @@ import {
 import {
   AuthContext,
   type User,
-} from "./auth-context";
+} from "./auth-context-value";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
