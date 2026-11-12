@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
 
@@ -40,7 +41,7 @@ export function LoginForm({
     setIsSubmitting(true);
   
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

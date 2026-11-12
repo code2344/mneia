@@ -7,6 +7,8 @@ import ReviewsPage from "./pages/reviews";
 import AssessmentsPage from "./pages/assessments";
 import ProgressPage from "./pages/progress";
 import StudyPlanPage from "./pages/study-plan";
+import AppLayout from "./components/outlet";
+import FileBrowserLayout from "./components/file-browser-layout";
 
 import ProtectedRoute from "./components/protected-route";
 import { AuthProvider } from "./auth/auth-context";
@@ -19,12 +21,17 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/decks" element={<DecksPage />} />
-          <Route path="/reviews" element={<ReviewsPage />} />
-          <Route path="/study-plan" element={<StudyPlanPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/assessments" element={<AssessmentsPage />} />
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/reviews" element={<ReviewsPage />} />
+            <Route path="/study-plan" element={<StudyPlanPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+        
+            <Route element={<FileBrowserLayout />}>
+              <Route path="/decks" element={<DecksPage />} />
+              <Route path="/assessments" element={<AssessmentsPage />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </AuthProvider>
