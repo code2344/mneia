@@ -105,7 +105,6 @@ model subjects {
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model users {
   id            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String
   first_name    String
   email         String
   password_hash String

@@ -1,8 +1,8 @@
 function HomePage() {
   return (
     <main>
-      <h1>Recall homepage</h1>
-      <p>Welcome to Recall.</p>
+      <h1>mneia homepage</h1>
+      <p>Welcome to mneia.</p>
     </main>
   );
 }

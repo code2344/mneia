@@ -22,17 +22,18 @@ import {
   LogOutIcon,
   PlayCircleIcon
 } from "lucide-react";
+import { useAuth } from "@/auth/auth-context";
 
 export function NavUser({
   user,
 }: {
   user: {
-    name: string;
+    firstName: string;
     email: string;
-    avatar: string;
   };
 }) {
   const { isMobile } = useSidebar();
+  const initial = user.firstName.trim().charAt(0).toUpperCase();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -43,11 +44,11 @@ export function NavUser({
             }
           >
             <Avatar className="size-8 rounded-lg grayscale">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              <AvatarImage src={user.avatar} alt={user.firstName} />
+              <AvatarFallback className="rounded-lg">{initial}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">{user.name}</span>
+              <span className="truncate font-medium">{user.firstName}</span>
               <span className="truncate text-xs text-foreground/70">
                 {user.email}
               </span>
@@ -64,11 +65,11 @@ export function NavUser({
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="size-8">
-                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarImage src={user.avatar} alt={user.firstName} />
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">{user.name}</span>
+                    <span className="truncate font-medium">{user.firstName}</span>
                     <span className="truncate text-xs text-muted-foreground">
                       {user.email}
                     </span>
