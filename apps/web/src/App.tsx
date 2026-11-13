@@ -13,6 +13,8 @@ import FileBrowserLayout from "./components/file-browser-layout";
 import ProtectedRoute from "./components/protected-route";
 import { AuthProvider } from "./auth/auth-context";
 
+import { Analytics } from "@vercel/analytics/react";
+
 function App() {
   return (
     <AuthProvider>
@@ -34,6 +36,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <Analytics />
     </AuthProvider>
   );
 }
