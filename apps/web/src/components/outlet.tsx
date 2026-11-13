@@ -4,7 +4,14 @@ import { SidebarProvider } from "./ui/sidebar";
 
 function AppLayout() {
   return (
-    <SidebarProvider>
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--header-height": "calc(var(--spacing) * 12)",
+        } as React.CSSProperties
+      }
+    >
       <div className="flex min-h-svh w-full">
         <AppSidebar />
 
