@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       const apiUrl = import.meta.env.VITE_API_URL;
       
-      const response = await fetch(`${apiUrl}/api/auth/me`, {
+      const response = await fetch(`${apiUrl}/auth/me`, {
         credentials: "include",
       });
 

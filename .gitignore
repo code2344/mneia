@@ -5,3 +5,4 @@ apps/api/.env
 apps/api/cookies.txt
 apps/web/dist/
 node_modules/
+apps/landing/dist/

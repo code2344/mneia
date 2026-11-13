@@ -6,7 +6,7 @@ if (!apiKey && process.env.NODE_ENV === "production") {
   throw new Error("Missing LOOPS_API_KEY");
 }
 
-const loops = apiKey ? new LoopsClient(apiKey) : null;
+export const loops = apiKey ? new LoopsClient(apiKey) : null;
 
 export async function syncUserContact(input: {
   id: string;
@@ -22,13 +22,5 @@ export async function syncUserContact(input: {
       firstName: input.firstName,
       source: "mneia_app",
     },
-  });
-}
-
-export async function addWaitlistContact(email: string) {
-  if (!loops) return;
-
-  return loops.createContact({
-    email,
   });
 }

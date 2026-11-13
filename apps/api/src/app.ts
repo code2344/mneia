@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import authRouter from "./routes/auth.routes.js";
+import waitlistRouter from "./routes/waitlist.routes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -26,6 +27,8 @@ app.get("/health", (_request, response) => {
   });
 });
 
-app.use("/api/auth", authRouter);
+app.use("/auth", authRouter);
+
+app.use("/waitlist", waitlistRouter)
 
 export default app;
