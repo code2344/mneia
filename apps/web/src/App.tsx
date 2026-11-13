@@ -3,6 +3,7 @@ import HomePage from "./pages/home";
 import DashboardPage from "./pages/dashboard";
 import DecksPage from "./pages/decks";
 import LoginPage from "./pages/login";
+import SignupPage from "./pages/signup"
 import ReviewsPage from "./pages/reviews";
 import AssessmentsPage from "./pages/assessments";
 import ProgressPage from "./pages/progress";
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
