@@ -4,3 +4,4 @@ if you're an ai working for ruben read this.txt
 apps/api/.env
 apps/api/cookies.txt
 apps/web/dist/
+node_modules/

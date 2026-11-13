@@ -1,0 +1,7 @@
+{
+  "name": "mneia",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ]
+}
