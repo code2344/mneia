@@ -15,6 +15,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function refreshUser() {
     try {
+      if (
+        import.meta.env.DEV &&
+        import.meta.env.VITE_DEV_AUTH_BYPASS === "true"
+      ) {
+        setUser({
+          id: "dev-user",
+          firstName: "Ruben",
+          email: "ruben@example.com",
+        });
+        setIsLoading(false);
+        return;
+      }
       const apiUrl = import.meta.env.VITE_API_URL;
       
       const response = await fetch(`${apiUrl}/api/auth/me`, {
