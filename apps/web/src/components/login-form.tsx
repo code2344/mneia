@@ -93,6 +93,14 @@ export function LoginForm({
                   </Button>
                 )}
               </Field>
+              <Field>
+                {googleEnabled && (
+                  <Button variant="outline" type="button">
+                    <SiGoogle />
+                    Login with Google
+                  </Button>
+                )}
+              </Field>
               {(githubEnabled || googleEnabled) && (
                 <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                   Or continue with
