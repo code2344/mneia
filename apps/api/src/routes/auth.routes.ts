@@ -8,6 +8,7 @@ import {
   getCurrentUser,
   login,
   registerUser,
+  destroySession,
 } from "../services/auth.service.js";
 
 const authRouter = Router();
@@ -59,7 +60,20 @@ authRouter.post("/login", async (request, response) => {
   }
 });
 
-authRouter.post("/logout", (_request, response) => {
+authRouter.post("/logout", async (_request, response) => {
+  const sessionToken = _request.cookies.mneia_session;
+
+  if (sessionToken) {
+    await destroySession(sessionToken);
+  }
+
+  response.clearCookie("mneia_session", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+  });
+
   response.status(204).send();
 });
 

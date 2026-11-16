@@ -48,13 +48,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setIsLoading(false);
     }
   }
+  
+  async function logout() {
+    const apiUrl = import.meta.env.VITE_API_URL;
+  
+    const response = await fetch(`${apiUrl}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    console.log("Logout response:", response.status, await response.text());
+  
+    if (!response.ok) {
+      throw new Error("Failed to log out");
+    }
+  
+    setUser(null);
+  }
 
   useEffect(() => {
     void refreshUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, refreshUser }}>
+    <AuthContext.Provider value={{ user, isLoading, refreshUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

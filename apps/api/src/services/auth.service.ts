@@ -112,8 +112,17 @@ export async function registerUser(
     },
     sessionToken,
   };
-  // Continue from here
 };
+
+export async function destroySession(sessionToken: string) {
+  const tokenHash = hashSessionToken(sessionToken);
+
+  await prisma.sessions.deleteMany({
+    where: {
+      token_hash: tokenHash,
+    },
+  });
+}
 
 async function createSession(userId: string) {
   const sessionToken = createSessionToken();

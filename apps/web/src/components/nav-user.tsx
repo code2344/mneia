@@ -21,6 +21,7 @@ import {
   BellIcon,
   LogOutIcon
 } from "lucide-react";
+import { useAuth } from "@/auth/use-auth";
 
 export function NavUser({
   user,
@@ -32,6 +33,12 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar();
   const initial = user.firstName.trim().charAt(0).toUpperCase();
+  const { logout } = useAuth();
+
+  async function handleLogout() {
+    await logout();
+  }
+  
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -91,7 +98,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOutIcon />
               Log out
             </DropdownMenuItem>
