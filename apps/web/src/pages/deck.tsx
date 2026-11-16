@@ -1,2 +1,8 @@
 
-export default function DeckPage
+export default function DeckPage() {
+  return (
+    <div>
+      
+    </div>
+  );
+};

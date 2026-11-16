@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import HomePage from "./pages/home";
 import DashboardPage from "./pages/dashboard";
 import DecksPage from "./pages/decks";
-import 
+import DeckPage from "./pages/deck";
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup"
 import ReviewsPage from "./pages/reviews";
