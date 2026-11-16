@@ -8,7 +8,7 @@ const decksRouter = Router();
 
 decksRouter.get("/", requireAuth, async (request, response, next) => {
   const user = response.locals.user;
-  const decks = getDecksForUser(user.id);
+  const decks = await getDecksForUser(user.id);
 
   response.json({ decks });
 });
