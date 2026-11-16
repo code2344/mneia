@@ -18,6 +18,25 @@ export async function getDecksForUser(userId: string) {
   return decks;
 }
 
+export async function getDeckForUser(userId: string, deckId: string) {
+  return prisma.decks.findFirst({
+    where: {
+      id: deckId,
+      user_id: userId,
+    },
+    select: {
+      id: true,
+      user_id: true,
+      subject_id: true,
+      title: true,
+      description: true,
+      created_at: true,
+      updated_at: true,
+      archived_at: true,
+    },
+  });
+}
+
 export async function createDeckForUser(
   userId: string,
   input: CreateDeckInput,
