@@ -12,3 +12,5 @@ decksRouter.get("/", requireAuth, async (request, response, next) => {
 
   response.json({ decks });
 });
+
+export default decksRouter;

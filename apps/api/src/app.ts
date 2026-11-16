@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import authRouter from "./routes/auth.routes.js";
 import waitlistRouter from "./routes/waitlist.routes.js";
+import decksRouter from "./routes/decks.routes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -31,4 +32,5 @@ app.use("/auth", authRouter);
 
 app.use("/waitlist", waitlistRouter)
 
+app.use("/decks", decksRouter)
 export default app;
