@@ -131,3 +131,17 @@
     @apply font-sans;
   }
 }
+
+@layer components {
+    .legal-content p {
+        @apply text-sm leading-7 text-muted-foreground;
+    }
+
+    .legal-content h2 {
+        @apply mt-3 font-heading text-2xl font-semibold tracking-tight;
+    }
+
+    .legal-content ul {
+        @apply list-disc space-y-1 pl-6 text-sm leading-7 text-muted-foreground;
+    }
+}
