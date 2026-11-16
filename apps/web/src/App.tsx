@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router";
 import HomePage from "./pages/home";
 import DashboardPage from "./pages/dashboard";
 import DecksPage from "./pages/decks";
+import 
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup"
 import ReviewsPage from "./pages/reviews";
@@ -33,6 +34,7 @@ function App() {
             <Route element={<FileBrowserLayout title="My Decks" />}>
               <Route path="/decks" element={<DecksPage />} />
             </Route>
+            <Route path="/decks/:deckId" element={<DeckPage />} />
             <Route element={<FileBrowserLayout title="My Assessments" />}>
               <Route path="/assessments" element={<AssessmentsPage />} />
             </Route>

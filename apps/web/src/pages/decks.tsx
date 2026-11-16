@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreateDeckDialog } from "@/components/decks/create-deck-dialog";
+import { Link } from "react-router";
 
 type Deck = {
   id: string,
@@ -77,17 +78,19 @@ export default function DecksPage() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {decks.map((deck) => (
-            <Card key={deck.id}>
-              <CardHeader>
-                <CardTitle>{deck.title}</CardTitle>
-              </CardHeader>
-
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  {deck.description || "No description"}
-                </p>
-              </CardContent>
-            </Card>
+            <Link to={`/decks/${deck.id}`}>
+              <Card key={deck.id}>
+                <CardHeader>
+                  <CardTitle>{deck.title}</CardTitle>
+                </CardHeader>
+  
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    {deck.description || "No description"}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
