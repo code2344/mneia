@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CreateDeckDialog } from "@/components/decks/create-deck-dialog";
 
 type Deck = {
   id: string,
@@ -54,6 +55,11 @@ export default function DecksPage() {
           <p className="text-muted-foreground mt-1">
             Your card collections.
           </p>
+          <CreateDeckDialog
+              onCreated={(deck) => {
+                setDecks((current) => [deck, ...current]);
+              }}
+            />
         </div>
         {isLoading && <p>Loading your decks...</p>}
 
