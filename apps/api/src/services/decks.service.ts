@@ -37,6 +37,25 @@ export async function getDeckForUser(userId: string, deckId: string) {
   });
 }
 
+export async function getCardsInDeck(
+  userId: string, deckId: string
+) {
+  return prisma.cards.findMany({
+    where: {
+      deck_id: deckId
+    },
+    select: {
+      id: true,
+      deck_id: true,
+      front: true,
+      back: true,
+      position: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
+}
+
 export async function createDeckForUser(
   userId: string,
   input: CreateDeckInput,

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require-auth.js";
-import { getDecksForUser, createDeckForUser, getDeckForUser } from "../services/decks.service.js";
+import { getDecksForUser, createDeckForUser, getDeckForUser, getCardsInDeck } from "../services/decks.service.js";
 import { createDeckSchema } from "../validation/deck.schemas.js";
 
 
@@ -54,6 +54,33 @@ decksRouter.get("/:deckId", requireAuth, async (request, response, next) => {
       return;
     }
     response.json({ deck });
+  } catch (error) {
+    next(error);
+  }
+});
+
+decksRouter.get("/:deckId/cards", requireAuth, async (request, response, next) => {
+  try {
+    const { deckId } = request.params;
+    if (typeof deckId != "string") {
+      response.status(400).json({
+        error: "Invalid deck ID",
+      });
+      return;
+    }
+    
+    const cards = await getCardsInDeck(
+      response.locals.user.id,
+      deckId,
+    );
+
+    if (!cards) {
+      response.status(404).json({
+        error: "No cards found for deck.",
+      });
+      return;
+    }
+    response.json({ cards });
   } catch (error) {
     next(error);
   }
