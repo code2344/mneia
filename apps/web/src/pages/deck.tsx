@@ -1,16 +1,29 @@
 import { getCards, getDeck } from "@/lib/api/decks";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { de } from "zod/v4/locales";
+
+type Deck = {
+  id: string;
+  title: string;
+  description: string | null;
+};
+
+type Card = {
+  id: string;
+  front: string;
+  back: string;
+};
 
 export default function DeckPage() {
-  const { deckId } = useParams<{ deckId: string }>();
   
-  const [deck, setDeck] = useState(null);
-  const [cards, setCards] = useState([]);
+  const [deck, setDeck] = useState<Deck | null>(null);
+  const [cards, setCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+
+  const { deckId } = useParams<{ deckId: string }>();
+  
   useEffect(() => {
     if (!deckId) return;
 
@@ -21,7 +34,7 @@ export default function DeckPage() {
           getCards(deckId),
         ]);
         setDeck(deckData.deck);
-        setCards(deckData.cards);
+        setCards(cardData.cards);
       } catch (error) {
         setError(
           error instanceof Error
