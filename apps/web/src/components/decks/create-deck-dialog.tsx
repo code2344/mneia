@@ -29,39 +29,52 @@ export function CreateDeckDialog({
   onCreated,
 }: CreateDeckDialogProps) {
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-  
-    const formData = new FormData(event.currentTarget);
-  
-    const title = String(formData.get("title") ?? "");
-    const descriptionValue = String(formData.get("description") ?? "");
-  
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/decks`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      setIsSubmitting(true);
+      setError(null);
+      event.preventDefault();
+    
+      const formData = new FormData(event.currentTarget);
+    
+      const title = String(formData.get("title") ?? "");
+      const descriptionValue = String(formData.get("description") ?? "");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/decks`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            description: descriptionValue || null,
+          }),
         },
-        body: JSON.stringify({
-          title,
-          description: descriptionValue || null,
-        }),
-      },
-    );
+      );
+    
+      const data = await response.json();
+    
+      if (!response.ok) {
+        throw new Error(data.error ?? "Could not create deck");
+      }
   
-    const data = await response.json();
-  
-    if (!response.ok) {
-      throw new Error(data.error ?? "Could not create deck");
+      onCreated(data.deck);
+      event.currentTarget.reset();
+      setOpen(false);
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Could not create deck",
+      );
+    } finally {
+      setIsSubmitting(false);
     }
-  
-    onCreated(data.deck);
-    event.currentTarget.reset();
-    setOpen(false);
   }
 
   return (
@@ -99,7 +112,14 @@ export function CreateDeckDialog({
             <DialogClose render={<Button variant="outline" />}>
               Cancel
             </DialogClose>
-            <Button type="submit">Create Deck</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Creating…" : "Create deck"}
+            </Button>
+            {error && (
+              <p className="text-sm text-destructive">
+                {error}
+              </p>
+            )}
           </DialogFooter>
         </form>
       </DialogContent>
