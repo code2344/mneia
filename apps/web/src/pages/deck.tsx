@@ -23,6 +23,7 @@ export default function DeckPage() {
 
 
   const { deckId } = useParams<{ deckId: string }>();
+  const id = deckId;
   
   useEffect(() => {
     if (!deckId) return;
@@ -30,8 +31,8 @@ export default function DeckPage() {
     async function loadDeckPage() {
       try {
         const [deckData, cardData] = await Promise.all([
-          getDeck(deckId),
-          getCards(deckId),
+          getDeck(id),
+          getCards(id),
         ]);
         setDeck(deckData.deck);
         setCards(cardData.cards);
