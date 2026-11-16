@@ -1,10 +1,14 @@
 import { Outlet } from "react-router";
 import { SiteHeader } from "./site-header";
 
-function FileBrowserLayout() {
+type FileBrowserProps = {
+  title: string;
+};
+
+function FileBrowserLayout({title}: FileBrowserProps) {
   return (
     <div className="flex min-h-svh flex-col">
-      <SiteHeader />
+      <SiteHeader title={title} />
 
       <main className="flex-1">
         <Outlet />
