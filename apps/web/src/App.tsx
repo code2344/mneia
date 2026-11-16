@@ -30,8 +30,12 @@ function App() {
             <Route path="/reviews" element={<ReviewsPage />} />
             <Route path="/study-plan" element={<StudyPlanPage />} />
             <Route path="/progress" element={<ProgressPage />} />
-            <Route path="/decks" element={<DecksPage />} />
-            <Route path="/assessments" element={<AssessmentsPage />} />
+            <Route element={<FileBrowserLayout title="My Decks" />}>
+              <Route path="/decks" element={<DecksPage />} />
+            </Route>
+            <Route element={<FileBrowserLayout title="My Assessments" />}>
+              <Route path="/assessments" element={<AssessmentsPage />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
