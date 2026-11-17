@@ -47,6 +47,9 @@ export async function getCardsInDeck(
         user_id: userId,
       }
     },
+    orderBy: {
+      position: "asc",
+    },
     select: {
       id: true,
       deck_id: true,
