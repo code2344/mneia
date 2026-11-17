@@ -1,5 +1,4 @@
 import * as React from "react"
-import AddCardDialog from "./add-card-dialog"
 import type { Card } from "@/types/card";
 import {
   closestCenter,
@@ -30,7 +29,6 @@ import {
   RotateCcw,
   Brain,
   BookOpen,
-  Upload,
 } from "lucide-react"
 import {
   columnFilteringFeature,
@@ -226,10 +224,8 @@ function DraggableRow({
 
 export function DataTable({
   data: initialData,
-  deckId,
 }: {
   data: Card[];
-  deckId: string;
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
@@ -287,42 +283,7 @@ export function DataTable({
   }
 
   return (
-    <div
-      className="w-full flex-col justify-start gap-6">
-      <div className="flex items-center justify-between px-4 lg:px-6">
-        <div className="flex items-center gap-2">
-          <AddCardDialog
-            deckId={deckId}
-            onCreated={(card) => {
-              setData((current) => [...current, card]);
-            }}
-          />
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => document.getElementById("card-import")?.click()}>
-            <Upload />
-            Import cards
-          </Button>
-          
-          <input
-            id="card-import"
-            type="file"
-            accept=".csv,.txt,.apkg"
-            className="hidden"
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-          
-              if (!file) return;
-          
-              // Parse and upload the file here.
-              console.log(file);
-          
-              event.target.value = "";
-            }}
-          />
-        </div>
-      </div>
+    <div className="w-full flex-col justify-start gap-6">
       <div className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
         <div className="overflow-hidden rounded-lg border">
           <DndContext

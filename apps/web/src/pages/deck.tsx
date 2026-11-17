@@ -1,9 +1,10 @@
 import { getCards, getDeck } from "@/lib/api/decks";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/deck/table/data-table";
+import AddCardDialog from "@/components/deck/table/add-card-dialog";
 import AppLoading from "@/components/app-loading";
 import type { Card } from "@/types/card";
 
@@ -91,7 +92,38 @@ export default function DeckPage() {
             </p>
             
             <div className="mt-6 flex flex-wrap items-center gap-2">
-              {/* buttons will go here */}
+              <div className="flex items-center gap-2">
+                <AddCardDialog
+                  deckId={deckId}
+                  onCreated={(card) => {
+                    setCards((current) => [...current, card]);
+                  }}
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => document.getElementById("card-import")?.click()}>
+                  <Upload />
+                  Import cards
+                </Button>
+                
+                <input
+                  id="card-import"
+                  type="file"
+                  accept=".csv,.txt,.apkg"
+                  className="hidden"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                
+                    if (!file) return;
+                
+                    // Parse and upload the file here.
+                    console.log(file);
+                
+                    event.target.value = "";
+                  }}
+                />
+              </div>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-8 border-t pt-5">
