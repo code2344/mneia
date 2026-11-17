@@ -26,9 +26,13 @@ export default function DeckPage() {
   const id = deckId;
   
   useEffect(() => {
-    if (!deckId) return;
+    if (typeof deckid !== "string") {
+      setError("Invalid deck id");
+      setIsLoading(false);
+      return;
+    }
 
-    async function loadDeckPage() {
+    async function loadDeckPage(id: string) {
       try {
         const [deckData, cardData] = await Promise.all([
           getDeck(id),
@@ -47,7 +51,7 @@ export default function DeckPage() {
       }
     }
 
-    void loadDeckPage();
+    void loadDeckPage(deckId);
   }, [deckId]);
 
   if (isLoading) {
