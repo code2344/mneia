@@ -1,6 +1,8 @@
 import { getCards, getDeck } from "@/lib/api/decks";
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
+import { Button } from "@/components/ui/button";
 
 type Deck = {
   id: string;
@@ -62,7 +64,10 @@ export default function DeckPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 p-8 md:gap-6 md:p-10">
-          <Link to="/decks"><p className="text-sm text-muted-foreground">Go back</p></Link>
+          <Button variant="ghost" className="w-fit" render={<Link to="/decks" />}>
+            <ArrowLeft className="size-4" />
+            Back to decks
+          </Button>
           <h2 className="font-heading text-2xl font-semibold">
             {deck?.title}
           </h2>
