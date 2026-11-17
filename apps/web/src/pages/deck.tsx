@@ -21,12 +21,10 @@ export default function DeckPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-
   const { deckId } = useParams<{ deckId: string }>();
-  const id = deckId;
   
   useEffect(() => {
-    if (typeof deckid !== "string") {
+    if (typeof deckId !== "string") {
       setError("Invalid deck id");
       setIsLoading(false);
       return;
