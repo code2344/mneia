@@ -3,10 +3,8 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { Button } from "@/components/ui/button";
-import {
-  DataTable,
-  type CardRow,
-} from "@/components/deck/table/data-table";
+import { DataTable } from "@/components/deck/table/data-table";
+import type { Card } from "@/types/card";
 
 type Deck = {
   id: string;
@@ -14,16 +12,10 @@ type Deck = {
   description: string | null;
 };
 
-type Card = {
-  id: string;
-  front: string;
-  back: string;
-};
-
-const testCards: CardRow[] = [
+const testCards: Card[] = [
   {
-    id: "1",
     deck_id: "biology",
+    id: "1",
     front: "What is photosynthesis?",
     back: "The process plants use to make glucose.",
     position: 0,
@@ -99,7 +91,7 @@ export default function DeckPage() {
           <p>{deck?.description}</p>
           <p>{cards.length} cards</p>
         </div>
-        <DataTable data={testCards} />
+        <DataTable data={testCards} deckId={deckId} />
       </div>
     </div>
   );
