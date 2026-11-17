@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/deck/table/data-table";
-import { AppLoading } from "@/components/app-loading";
+import AppLoading from "@/components/app-loading";
 import type { Card } from "@/types/card";
 
 type Deck = {
