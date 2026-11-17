@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require-auth.js";
-import { getDecksForUser, createDeckForUser, getDeckForUser, getCardsInDeck, createCardInDeck } from "../services/decks.service.js";
+import { getDecksForUser, createDeckForUser, getDeckForUser, getCardsInDeck, createCardInDeck, deleteCardInDeck } from "../services/decks.service.js";
 import { createDeckSchema } from "../validation/deck.schemas.js";
 import { createCardSchema } from "../validation/card.schemas.js";
 
@@ -105,6 +105,24 @@ decksRouter.post("/:deckId/cards", requireAuth, async (request, response, next) 
     response.status(201).json({ card });
     
     
+  } catch (error) {
+    next(error);
+  }
+})
+
+decksRouter.delete("/:deckId/cards/:cardId", requireAuth, async (request, response, next) => {
+  try {
+    const { deckId, cardId } = request.params;
+
+    if (typeof deckId !== "string" || typeof cardId !== "string") {
+      response.status(400).json({
+        error: "Invalid deck or card ID"
+      });
+      return;
+    }
+
+    await deleteCardInDeck(response.locals.user.id, deckId, cardId);
+    response.status(204).send();
   } catch (error) {
     next(error);
   }

@@ -230,3 +230,23 @@ export async function createCardInDeck(
     };
   })
 }
+
+export async function deleteCardInDeck(
+  userId: string,
+  deckId: string,
+  cardId: string
+) {
+  const result = await prisma.cards.deleteMany({
+    where: {
+      id: cardId,
+      deck_id: deckId,
+      decks: {
+        user_id: userId,
+      },
+    },
+  });
+
+  if (result.count === 0) {
+    throw new AppError("Card not found", 404)
+  }
+}
