@@ -132,66 +132,9 @@ function getCardStateConfig(state: number): CardStateConfig {
   }
 }
 
-// Create a separate component for the drag handle
 
-const columns = columnHelper.columns([
-  columnHelper.accessor("front", {
-    header: "Front (question)",
-    cell: ({ row }) => (
-      <div className="max-w-md truncate font-medium">
-        {row.original.front}
-      </div>
-    ),
-  }),
-  columnHelper.accessor("back", {
-    header: "Back",
-    cell: ({ row }) => (
-      <div className="max-w-md truncate font-medium">
-        {row.original.back}
-      </div>
-    ),
-  }),
-  columnHelper.display({
-    id: "state",
-    header: "State",
-    cell: ({ row }) => {
-      const state = getCardStateConfig(row.original.scheduling?.state ?? 0);
-      const Icon = state.icon;
 
-      return (
-        <Badge variant="outline" className={state.className}>
-          <Icon className="size-3.5" />
-          {state.label}
-        </Badge>
-      );
-    },
-  }),
-  columnHelper.display({
-    id: "actions",
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          render={
-            <Button
-              variant="ghost"
-              className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-              size="icon"
-            />
-          }>
-          <EllipsisVertical />
-          <span className="sr-only">Open menu</span>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  }),
-])
+
 
 function DraggableRow({
   row,
@@ -224,8 +167,10 @@ function DraggableRow({
 
 export function DataTable({
   data: initialData,
+  deckId,
 }: {
   data: Card[];
+  deckId: string;
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
@@ -245,6 +190,82 @@ export function DataTable({
     useSensor(TouchSensor, {}),
     useSensor(KeyboardSensor, {})
   )
+
+  async function handleDelete(cardId: string) {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/decks/${deckId}/cards/${cardId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
+  
+    if (!response.ok) {
+      throw new Error("Could not delete card")
+    }
+  
+    setData((current) =>
+      current.filter((card) => card.id !== cardId),
+    );
+  }
+  const columns = columnHelper.columns([
+    columnHelper.accessor("front", {
+      header: "Front (question)",
+      cell: ({ row }) => (
+        <div className="max-w-md truncate font-medium">
+          {row.original.front}
+        </div>
+      ),
+    }),
+    columnHelper.accessor("back", {
+      header: "Back",
+      cell: ({ row }) => (
+        <div className="max-w-md truncate font-medium">
+          {row.original.back}
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: "state",
+      header: "State",
+      cell: ({ row }) => {
+        const state = getCardStateConfig(row.original.scheduling?.state ?? 0);
+        const Icon = state.icon;
+  
+        return (
+          <Badge variant="outline" className={state.className}>
+            <Icon className="size-3.5" />
+            {state.label}
+          </Badge>
+        );
+      },
+    }),
+    columnHelper.display({
+      id: "actions",
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button
+                variant="ghost"
+                className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
+                size="icon"
+              />
+            }>
+            <EllipsisVertical />
+            <span className="sr-only">Open menu</span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-32">
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Make a copy</DropdownMenuItem>
+            <DropdownMenuItem>Favorite</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive" onClick={() => handleDelete(row.original.id)}>Delete</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
+    }),
+  ])
 
   const dataIds = React.useMemo<UniqueIdentifier[]>(
     () => data?.map(({ id }) => id) || [],
