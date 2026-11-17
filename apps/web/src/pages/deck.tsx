@@ -143,7 +143,7 @@ export default function DeckPage() {
           </section>
         </div>
         
-        <DataTable data={cards} deckId={deckId} />
+        <DataTable data={cards}/>
       </div>
     </div>
   );
