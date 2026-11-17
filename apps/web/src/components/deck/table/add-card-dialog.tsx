@@ -28,8 +28,8 @@ export default function AddCardDialog({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-  
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
   
     const front = String(formData.get("front") ?? "").trim();
     const back = String(formData.get("back") ?? "").trim();
@@ -62,7 +62,7 @@ export default function AddCardDialog({
       }
   
       onCreated(data.card);
-      event.currentTarget.reset();
+      form.reset();
       setOpen(false);
     } catch (error) {
       setError(

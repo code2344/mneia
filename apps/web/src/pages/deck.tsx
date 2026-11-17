@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/deck/table/data-table";
+import { AppLoading } from "@/components/app-loading";
 import type { Card } from "@/types/card";
 
 type Deck = {
@@ -51,7 +52,7 @@ export default function DeckPage() {
   }, [deckId]);
 
   if (isLoading) {
-    return <p>Loading deck</p>;
+    return <AppLoading />;
   }
   if (error) {
     return <p className="text-destructive">{error}</p>;
