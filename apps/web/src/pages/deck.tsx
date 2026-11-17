@@ -59,12 +59,14 @@ export default function DeckPage() {
     return <p className="text-destructive">{error}</p>;
   }
   return (
-    <main>
-      <h2 className="font-heading text-2xl font-semibold">
-        {deck?.title}
-      </h2>
-      <p>{deck?.description}</p>
-      <p>{cards.length} cards</p>
-    </main>
+    <div className="flex flex-1 flex-col">
+      <div className="@container/main flex flex-1 flex-col gap-2">
+        <h2 className="font-heading text-2xl font-semibold">
+          {deck?.title}
+        </h2>
+        <p>{deck?.description}</p>
+        <p>{cards.length} cards</p>
+      </div>
+    </div>
   );
 };
