@@ -5,7 +5,7 @@ function ProtectedRoute() {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <AppLoading />;
   }
 
   if (!user) {

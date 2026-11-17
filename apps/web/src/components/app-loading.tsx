@@ -7,9 +7,14 @@ export default function AppLoading() {
         <div className="font-heading text-2xl font-semibold tracking-tight">
           mneia
         </div>
-        <div className="size-6 animate-spin rounded-full border-2 border-muted border-t-primary" aria-label="Loading">
-          <p className="text-sm text-muted-foreground">Loading…</p>
-        </div>
+        <div
+          className="size-6 animate-spin rounded-full border-2 border-muted border-t-primary"
+          aria-label="Loading"
+        />
+        
+        <p className="text-sm text-muted-foreground">
+          Loading…
+        </p>
       </div>
     </div>
   )
