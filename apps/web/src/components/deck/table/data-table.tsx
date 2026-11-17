@@ -1,4 +1,6 @@
 import * as React from "react"
+import AddCardDialog from "./add-card-dialog"
+import type { Card } from "@/types/card";
 import {
   closestCenter,
   DndContext,
@@ -21,7 +23,6 @@ import { CSS } from "@dnd-kit/utilities"
 import {
   ChevronLeft,
   ChevronRight,
-  ChevronDown,
   ChevronsLeft,
   ChevronsRight,
   EllipsisVertical,
@@ -29,7 +30,6 @@ import {
   RotateCcw,
   Brain,
   BookOpen,
-  Plus,
   Upload,
 } from "lucide-react"
 import {
@@ -55,7 +55,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
@@ -92,26 +91,7 @@ const features = tableFeatures({
   sortedRowModel: createSortedRowModel(),
 })
 
-export type CardRow = {
-  id: string;
-  deck_id: string;
-  front: string;
-  back: string;
-  position: number;
-  created_at: string;
-  updated_at: string;
-  scheduling: {
-    due_at: string;
-    stability: number;
-    difficulty: number;
-    state: number;
-    reps: number;
-    lapses: number;
-    last_reviewed_at: string | null;
-  } | null;
-};
-
-const columnHelper = createColumnHelper<typeof features, CardRow>();
+const columnHelper = createColumnHelper<typeof features, Card>();
 
 type CardStateConfig = {
   label: string;
@@ -218,7 +198,7 @@ const columns = columnHelper.columns([
 function DraggableRow({
   row,
 }: {
-  row: Row<typeof features, CardRow>
+  row: Row<typeof features, Card>
 }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.original.id,
@@ -246,8 +226,10 @@ function DraggableRow({
 
 export function DataTable({
   data: initialData,
+  deckId,
 }: {
-  data: CardRow[]
+  data: Card[];
+  deckId: string;
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
@@ -309,10 +291,12 @@ export function DataTable({
       className="w-full flex-col justify-start gap-6">
       <div className="flex items-center justify-between px-4 lg:px-6">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            <Plus />
-            <span className="hidden lg:inline">Add card</span>
-          </Button>
+          <AddCardDialog
+            deckId={deckId}
+            onCreated={(card) => {
+              setData((current) => [...current, card]);
+            }}
+          />
           <Button
             variant="outline"
             size="sm"
