@@ -84,26 +84,24 @@ export default function AddCardDialog({
           <DialogHeader>
             <DialogTitle>Create new card</DialogTitle>
             <DialogDescription>
-              Create a new 2-sided flashcard in this deck. Click OK when you&apos;re done.
+              Create a new 2-sided flashcard in this deck.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4">
             <label className="flex flex-col gap-2 text-sm">
               Front (Question)
-              <input
+              <textarea
                 className="h-9 rounded-lg border border-input bg-transparent px-3"
                 name="front"
                 placeholder="What is mitosis?"
-                type="text"
                 />
             </label>
             <label className="flex flex-col gap-2 text-sm">
               Back (Answer)
-              <input
+              <textarea
                 className="h-9 rounded-lg border border-input bg-transparent px-3"
                 name="back"
                 placeholder="A type of cell division in which a single parent cell divides to produce two genetically identical daughter cells."
-                type="text"
                 />
             </label>
           </div>
