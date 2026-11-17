@@ -1,10 +1,10 @@
+import { useEffect } from "react";
+
 function HomePage() {
-  return (
-    <main>
-      <h1>mneia homepage</h1>
-      <p>Welcome to mneia.</p>
-    </main>
-  );
+  useEffect(() => {
+    window.location.replace("https://mneia.net")
+  }, []);
+  return null;
 }
 
 export default HomePage;
