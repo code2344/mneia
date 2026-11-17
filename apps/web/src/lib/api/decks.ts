@@ -1,4 +1,13 @@
 const apiUrl = import.meta.env.VITE_API_URL;
+export class ApiError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
 
 export async function getDeck(deckId: string) {
   const response = await fetch(`${apiUrl}/decks/${deckId}`, {
@@ -6,7 +15,12 @@ export async function getDeck(deckId: string) {
   });
 
   if (!response.ok) {
-    throw new Error("Could not load deck");
+    throw new ApiError(
+      response.status === 404
+        ? "Deck not found"
+        : "Could not load deck",
+      response.status,
+    );
   }
 
   return response.json();
