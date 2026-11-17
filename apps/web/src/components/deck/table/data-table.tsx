@@ -30,7 +30,7 @@ import {
   Brain,
   BookOpen,
   Plus,
-  Columns3
+  Upload,
 } from "lucide-react"
 import {
   columnFilteringFeature,
@@ -309,42 +309,34 @@ export function DataTable({
       className="w-full flex-col justify-start gap-6">
       <div className="flex items-center justify-between px-4 lg:px-6">
         <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<Button variant="outline" size="sm" />}>
-              <Columns3 />
-              <span className="hidden lg:inline">Customize Columns</span>
-              <span className="lg:hidden">Columns</span>
-              <ChevronDown />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {table
-                .getAllColumns()
-                .filter(
-                  (column) =>
-                    typeof column.accessorFn !== "undefined" &&
-                    column.getCanHide()
-                )
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
           <Button variant="outline" size="sm">
             <Plus />
             <span className="hidden lg:inline">Add card</span>
           </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => document.getElementById("card-import")?.click()}>
+            <Upload />
+            Import cards
+          </Button>
+          
+          <input
+            id="card-import"
+            type="file"
+            accept=".csv,.txt,.apkg"
+            className="hidden"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+          
+              if (!file) return;
+          
+              // Parse and upload the file here.
+              console.log(file);
+          
+              event.target.value = "";
+            }}
+          />
         </div>
       </div>
       <div className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
