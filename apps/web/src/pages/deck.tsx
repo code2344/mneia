@@ -63,7 +63,7 @@ export default function DeckPage() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
-        <div className="flex flex-col gap-4 p-8 md:gap-6 md:p-10">
+        <div className="flex flex-col gap-2 p-8 md:gap-6 md:p-10">
           <Button variant="ghost" className="w-fit" render={<Link to="/decks" />}>
             <ArrowLeft className="size-4" />
             Back to decks
