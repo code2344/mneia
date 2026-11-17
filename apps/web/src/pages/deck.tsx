@@ -61,12 +61,14 @@ export default function DeckPage() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
-        <Link to="/decks"><p className="text-sm text-muted-foreground">Go back</p></Link>
-        <h2 className="font-heading text-2xl font-semibold">
-          {deck?.title}
-        </h2>
-        <p>{deck?.description}</p>
-        <p>{cards.length} cards</p>
+        <div className="flex flex-col gap-4 p-8 md:gap-6 md:p-10">
+          <Link to="/decks"><p className="text-sm text-muted-foreground">Go back</p></Link>
+          <h2 className="font-heading text-2xl font-semibold">
+            {deck?.title}
+          </h2>
+          <p>{deck?.description}</p>
+          <p>{cards.length} cards</p>
+        </div>
       </div>
     </div>
   );
