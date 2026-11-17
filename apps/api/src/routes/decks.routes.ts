@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require-auth.js";
-import { getDecksForUser, createDeckForUser, getDeckForUser, getCardsInDeck } from "../services/decks.service.js";
+import { getDecksForUser, createDeckForUser, getDeckForUser, getCardsInDeck, createCardInDeck } from "../services/decks.service.js";
 import { createDeckSchema } from "../validation/deck.schemas.js";
+import { createCardSchema } from "../validation/card.schemas.js";
 
 
 const decksRouter = Router();
@@ -74,16 +75,39 @@ decksRouter.get("/:deckId/cards", requireAuth, async (request, response, next) =
       deckId,
     );
 
-    if (!cards) {
-      response.status(404).json({
-        error: "No cards found for deck.",
-      });
-      return;
-    }
     response.json({ cards });
   } catch (error) {
     next(error);
   }
 });
+
+decksRouter.post("/:deckId/cards", requireAuth, async (request, response, next) => {
+  try {
+    const { deckId } = request.params;
+    
+    if (typeof deckId != "string") {
+      response.status(400).json({
+        error: "Invalid deck ID",
+      });
+      return;
+    }
+
+    const result = createCardSchema.safeParse(request.body)
+    if (!result.success) {
+      response.status(400).json({
+        error: result.error.issues[0]?.message ?? "Invalid card data",
+      });
+      return;
+    }
+    
+    const card = await createCardInDeck(response.locals.user.id, deckId, result.data)
+
+    response.status(201).json({ card });
+    
+    
+  } catch (error) {
+    next(error);
+  }
+})
 
 export default decksRouter;

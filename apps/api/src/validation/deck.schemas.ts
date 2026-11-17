@@ -1,4 +1,4 @@
-import { trim, z } from "zod";
+import { z } from "zod";
 
 export const createDeckSchema = z.object({
   title: z
