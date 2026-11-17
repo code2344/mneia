@@ -12,27 +12,6 @@ type Deck = {
   description: string | null;
 };
 
-const testCards: Card[] = [
-  {
-    deck_id: "biology",
-    id: "1",
-    front: "What is photosynthesis?",
-    back: "The process plants use to make glucose.",
-    position: 0,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    scheduling: {
-      due_at: new Date().toISOString(),
-      stability: 2,
-      difficulty: 4,
-      state: 2,
-      reps: 3,
-      lapses: 0,
-      last_reviewed_at: new Date().toISOString(),
-    },
-  },
-];
-
 export default function DeckPage() {
   
   const [deck, setDeck] = useState<Deck | null>(null);
@@ -94,7 +73,7 @@ export default function DeckPage() {
           <p>{deck?.description}</p>
           <p>{cards.length} cards</p>
         </div>
-        <DataTable data={testCards} deckId={deckId} />
+        <DataTable data={cards} deckId={deckId} />
       </div>
     </div>
   );
