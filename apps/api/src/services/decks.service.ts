@@ -40,9 +40,12 @@ export async function getDeckForUser(userId: string, deckId: string) {
 export async function getCardsInDeck(
   userId: string, deckId: string
 ) {
-  return prisma.cards.findMany({
+  const cards = await prisma.cards.findMany({
     where: {
-      deck_id: deckId
+      deck_id: deckId,
+      decks: {
+        user_id: userId,
+      }
     },
     select: {
       id: true,
@@ -52,8 +55,24 @@ export async function getCardsInDeck(
       position: true,
       created_at: true,
       updated_at: true,
+      card_scheduling: {
+        select: {
+          due_at: true,
+          stability: true,
+          difficulty: true,
+          state: true,
+          reps: true,
+          lapses: true,
+          last_reviewed_at: true
+        },
+      },
     },
   });
+
+  return cards.map(({ card_scheduling, ...card }) => ({
+    ...card,
+    scheduling: card_scheduling,
+  }));
 }
 
 export async function createDeckForUser(
