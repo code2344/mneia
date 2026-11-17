@@ -68,12 +68,35 @@ export default function DeckPage() {
             <ArrowLeft className="size-4" />
             Back to decks
           </Button>
-          <h2 className="font-heading text-2xl font-semibold">
-            {deck?.title}
-          </h2>
-          <p>{deck?.description}</p>
-          <p>{cards.length} cards</p>
+          <section className="rounded-xl border bg-card p-6 shadow-sm md:p-8">
+            <h2 className="mt-2 font-heading text-3xl font-semibold">
+              {deck?.title}
+            </h2>
+            <p className="mt-2 text-muted-foreground">
+              {deck?.description}
+            </p>
+            
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              {/* buttons will go here */}
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-8 border-t pt-5">
+              <div>
+                <p className="text-2xl font-semibold">{cards.length}</p>
+                <p className="text-sm text-muted-foreground">Cards</p>
+              </div>
+              <div>
+                <p className="text-2xl font-semibold">0</p>
+                <p className="text-sm text-muted-foreground">Due today</p>
+              </div>
+              <div>
+                <p className="text-2xl font-semibold">0%</p>
+                <p className="text-sm text-muted-foreground">Mastered</p>
+              </div>
+            </div>
+          </section>
         </div>
+        
         <DataTable data={cards} deckId={deckId} />
       </div>
     </div>
