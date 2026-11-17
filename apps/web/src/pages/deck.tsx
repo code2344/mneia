@@ -1,6 +1,6 @@
 import { getCards, getDeck } from "@/lib/api/decks";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 
 type Deck = {
   id: string;
@@ -61,6 +61,7 @@ export default function DeckPage() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
+        <Link to="/decks"><p className="text-sm text-muted-foreground">Go back</p></Link>
         <h2 className="font-heading text-2xl font-semibold">
           {deck?.title}
         </h2>
