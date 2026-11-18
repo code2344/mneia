@@ -43,4 +43,22 @@ describe("createDeckSchema", () => {
 
     expect(result.success).toBe(false);
   });
+
+  it("rejects a deck with an overly long title", () => {
+    const result = createDeckSchema.safeParse({
+      title: "a".repeat(101),
+      description: "a nice description",
+    });
+
+    expect(result.success).toBe(false);
+  });
+  
+  it("rejects a deck with an overly long description", () => {
+    const result = createDeckSchema.safeParse({
+      title: "A valid deck title",
+      description: "a".repeat(501),
+    });
+
+    expect(result.success).toBe(false);
+  });
 });
