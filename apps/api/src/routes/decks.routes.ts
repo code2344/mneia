@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require-auth.js";
 import { getDecksForUser, createDeckForUser, getDeckForUser, getCardsInDeck, createCardInDeck, deleteCardInDeck } from "../services/decks.service.js";
-import { createDeckSchema } from "../validation/deck.schemas.js";
+import { createDeckSchema, deckCardParamsSchema } from "../validation/deck.schemas.js";
 import { createCardSchema } from "../validation/card.schemas.js";
+import { idSchema } from "../validation/id.schemas.js";
 
 
 const decksRouter = Router();
@@ -112,9 +113,16 @@ decksRouter.post("/:deckId/cards", requireAuth, async (request, response, next) 
 
 decksRouter.delete("/:deckId/cards/:cardId", requireAuth, async (request, response, next) => {
   try {
-    const { deckId, cardId } = request.params;
+    const result = deckCardParamsSchema.safeParse(request.body);
 
-    const result = deleteCardSchema.safeParse(request.body);
+    if (!result.success) {
+      response.status(400).json({
+        error: result.error.issues[0]?.message ?? "Invalid card data",
+      });
+      return;
+    }
+
+    const { deckId, cardId } = result.data;
 
     await deleteCardInDeck(response.locals.user.id, deckId, cardId);
     response.status(204).send();

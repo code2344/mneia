@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { idSchema } from "./id.schemas.js";
 
 export const createDeckSchema = z.object({
   title: z
@@ -13,4 +14,9 @@ export const createDeckSchema = z.object({
     .max(500, "Description must be 500 characters or fewer")
     .nullable()
     .optional(),
+});
+
+export const deckCardParamsSchema = z.object({
+  deckId: idSchema,
+  cardId: idSchema,
 });
