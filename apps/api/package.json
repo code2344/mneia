@@ -8,7 +8,9 @@
     "db:tunnel": "ssh -N -T -o ExitOnForwardFailure=yes -o ServerAliveInterval=60 -o ServerAliveCountMax=3 -L 127.0.0.1:15433:127.0.0.1:5433 services",
     "dev:with-db": "concurrently --kill-others-on-fail \"npm run db:tunnel\" \"npm run dev\"",
     "build": "prisma generate && tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "keywords": [],
   "author": "",

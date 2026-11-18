@@ -114,12 +114,7 @@ decksRouter.delete("/:deckId/cards/:cardId", requireAuth, async (request, respon
   try {
     const { deckId, cardId } = request.params;
 
-    if (typeof deckId !== "string" || typeof cardId !== "string") {
-      response.status(400).json({
-        error: "Invalid deck or card ID"
-      });
-      return;
-    }
+    const result = deleteCardSchema.safeParse(request.body);
 
     await deleteCardInDeck(response.locals.user.id, deckId, cardId);
     response.status(204).send();
