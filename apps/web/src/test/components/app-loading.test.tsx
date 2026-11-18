@@ -7,6 +7,6 @@ describe("AppLoading", () => {
   it("renders", () => {
     render(<AppLoading />);
 
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+    expect(screen.getByText(/Loading…/i)).toBeInTheDocument();
   });
 });
