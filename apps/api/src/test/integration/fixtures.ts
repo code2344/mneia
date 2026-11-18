@@ -73,3 +73,21 @@ export async function resetDatabase() {
     prisma.users.deleteMany(),
   ]);
 }
+
+export async function findDeckById(userId: string) {
+  return prisma.decks.findFirst({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      user_id: true,
+      id: true,
+      description: true,
+      title: true,
+      created_at: true,
+      subject_id: true,
+      updated_at: true,
+      archived_at: true,
+    }
+  });
+}
