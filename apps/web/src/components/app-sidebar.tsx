@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, CalendarDaysIcon, LibraryIcon, ClipboardCheckIcon, Settings2Icon, CircleHelpIcon, SearchIcon, CommandIcon } from "lucide-react"
+import { LayoutDashboardIcon, ListIcon, ChartBarIcon, CalendarDaysIcon, LibraryIcon, ClipboardCheckIcon, Settings2Icon, CircleHelpIcon, SearchIcon } from "lucide-react"
 import { useAuth } from "@/auth/use-auth";
 import mneiaIcon from "@/assets/mneia-icon.svg";
 
