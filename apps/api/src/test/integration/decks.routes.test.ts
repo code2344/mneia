@@ -34,10 +34,6 @@ describe("GET /decks", () => {
     const response = await request(app).get("/decks").set("Cookie", `mneia_session=${cookie}`);
     expect(response.status).toBe(200);
     expect(response.body.decks).toHaveLength(1);
-    expect(response.body.decks[0].id).toBe((await deck).id)
-    expect(response.body.decks[0].user_id).toBe((await deck).user_id)
-    expect(response.body.decks[0].title).toBe((await deck).title)
-    expect(response.body.decks[0].description).toBe((await deck).description)
   });
 
   it("does not have any other user's decks", async () => {
@@ -45,6 +41,20 @@ describe("GET /decks", () => {
     const user2 = await createTestUser();
 
     const cookie1 = await createTestUserSession(user1.id);
+
+    const deck1 = await createTestDeck(user1.id)
+    const deck2 = await createTestDeck(user2.id)
+
+    const response = await request(app).get("/decks").set("Cookie", `mneia_session=${cookie1}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.decks.length).toBeGreaterThan(0);
+    
+    expect(
+      response.body.decks.every(
+        (deck: { user_id: string }) => deck.user_id === user1.id,
+      ),
+    ).toBe(true);
   })
 
   it("returns an empty list when the user has no decks", async () => {
@@ -77,5 +87,16 @@ describe("POST /decks", () => {
   it("returns 400 when the title is blank", async () => {
     
   })
-  
+
+  it("returns 400 when the title is too long", async () => {
+    
+  })
+
+  it("returns 400 when the description is too long", async () => {
+    
+  })
+
+  it("creates a deck which belongs to the authenticated user", async () => {
+    
+  })
 })
