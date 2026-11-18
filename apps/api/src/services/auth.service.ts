@@ -32,11 +32,11 @@ function normaliseFirstName(firstName: string): string {
   return firstName.trim();
 }
 
-function createSessionToken(): string {
+export function createSessionToken(): string {
   return randomBytes(32).toString("base64url");
 }
 
-function hashSessionToken(token: string): string {
+export function hashSessionToken(token: string): string {
   return createHash("sha256").update(token).digest("hex");
 }
 
