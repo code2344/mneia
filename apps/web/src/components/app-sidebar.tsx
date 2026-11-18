@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sidebar"
 import { LayoutDashboardIcon, ListIcon, ChartBarIcon, CalendarDaysIcon, LibraryIcon, ClipboardCheckIcon, Settings2Icon, CircleHelpIcon, SearchIcon, CommandIcon } from "lucide-react"
 import { useAuth } from "@/auth/use-auth";
+import mneiaIcon from "@/assets/mneia-icon.svg";
 
 
 const data = {
@@ -105,7 +106,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5!"
               render={<a href="#" />}
             >
-              <CommandIcon className="size-5!" />
+              <img src={mneiaIcon} alt="" className="size-5 object-contain"/>
               <span className="text-base font-semibold">mneia</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
