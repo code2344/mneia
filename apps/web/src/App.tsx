@@ -18,6 +18,7 @@ import { AuthProvider } from "./auth/auth-context";
 
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
+import VercelToolbarGated from "./components/vercel-toolbar";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           </Route>
         </Routes>
         <Analytics />
+        <VercelToolbarGated />
       </Suspense>
     </AuthProvider>
   );
