@@ -50,6 +50,8 @@ app.use(
     }),
   }),
 );
+
+logger.info("App is running!")
   
 app.get("/health", (_request, response) => {
   response.json({
