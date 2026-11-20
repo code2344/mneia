@@ -16,6 +16,8 @@ model card_scheduling {
   state            Int       @default(0) @db.SmallInt
   reps             Int       @default(0)
   lapses           Int       @default(0)
+  elapsed_days     Int       @default(0)
+  scheduled_days   Int       @default(0)
   last_reviewed_at DateTime? @db.Timestamptz(6)
   updated_at       DateTime  @default(now()) @db.Timestamptz(6)
   cards            cards     @relation(fields: [card_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
