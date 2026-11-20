@@ -11,6 +11,7 @@ import AssessmentsPage from "./pages/assessments";
 import ProgressPage from "./pages/progress";
 import StudyPlanPage from "./pages/study-plan";
 import AppLayout from "./components/outlet";
+import StudyPage from "./pages/study";
 import FileBrowserLayout from "./components/file-browser-layout";
 
 import ProtectedRoute from "./components/protected-route";
@@ -28,7 +29,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-  
+          <Route path="/study" element={<StudyPage />} />
+
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<DashboardPage />} />
