@@ -27,6 +27,8 @@
     "express": "^5.3.0",
     "loops": "^7.5.0",
     "pg": "^8.23.1",
+    "pino": "^10.4.0",
+    "pino-http": "^11.0.0",
     "ts-fsrs": "^6.0.0",
     "zod": "^4.6.7"
   },
@@ -35,6 +37,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
+    "@types/pino-http": "^5.8.4",
     "@types/supertest": "^7.2.1",
     "@vitest/coverage-v8": "^5.1.0",
     "concurrently": "^10.0.7",
