@@ -5,6 +5,8 @@ import waitlistRouter from "./routes/waitlist.routes.js";
 import decksRouter from "./routes/decks.routes.js";
 import reviewsRouter from "./routes/reviews.routes.js"
 import cookieParser from "cookie-parser";
+import { pinoHttp } from "pino-http";
+import { logger } from "./lib/logger.js";
 
 const app = express();
 
@@ -21,6 +23,12 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(
+  pinoHttp({
+    logger,
+  }),
+);
   
 app.get("/health", (_request, response) => {
   response.json({
