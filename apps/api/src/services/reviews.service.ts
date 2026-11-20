@@ -1,16 +1,8 @@
 import { prisma } from "../db.js";
-
-class AppError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number,
-  ) {
-    super(message);
-  }
-}
+import { fsrsReview } from "./fsrs.service.js";
+import AppError from "../classes/app-error.js";
 
 export async function getDueReviews(userId: string) {
-  
   const dueCards = await prisma.cards.findMany({
     where: {
       card_scheduling: {
@@ -65,4 +57,12 @@ export async function getDueReviews(userId: string) {
     })),
     count: dueCards.length,
   };
+}
+
+export async function submitReview(
+  userId: string,
+  cardId: string,
+  rating: 1 | 2 | 3 | 4,
+) {
+  return fsrsReview(userId, cardId, rating);
 }

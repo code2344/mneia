@@ -8,3 +8,4 @@ node_modules/
 apps/landing/dist/
 .vercel
 .env*
+apps/api/dist/

@@ -1,4 +1,5 @@
 import { prisma } from "../db.js";
+import AppError from "../classes/app-error.js";
 
 type CreateDeckInput = {
   title: string;
@@ -10,14 +11,6 @@ type CreateCardInput = {
   back: string;
 }
 
-export class AppError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number,
-  ) {
-    super(message);
-  }
-}
 
 export async function getDecksForUser(userId: string) {
   const decks = await prisma.decks.findMany({
