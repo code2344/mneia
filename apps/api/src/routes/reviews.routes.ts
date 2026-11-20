@@ -31,6 +31,8 @@ reviewsRouter.post("/", requireAuth, async (request, response, next) => {
       cardId,
       rating as 1 | 2 | 3 | 4
     );
+
+    response.status(201).json({ review });
     
   } catch (error) {
     next(error);
