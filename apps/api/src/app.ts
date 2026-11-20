@@ -27,6 +27,27 @@ app.use(cookieParser());
 app.use(
   pinoHttp({
     logger,
+    customLogLevel: (_request, response, error) => {
+      if (error || response.statusCode >= 500) return "error";
+      if (response.statusCode >= 400) return "warn";
+      return "info";
+    },
+    customSuccessMessage: (request, response, responseTime) =>
+      `${request.method} ${request.url} ${response.statusCode} ${responseTime}ms`,
+    customErrorMessage: (request, response, error) =>
+      `${request.method} ${request.url} ${response.statusCode} ${error.message}`,
+    customSuccessObject: (request, response, responseTime) => ({
+      method: request.method,
+      path: request.url,
+      statusCode: response.statusCode,
+      responseTime,
+    }),
+    customErrorObject: (request, response, error) => ({
+      method: request.method,
+      path: request.url,
+      statusCode: response.statusCode,
+      error: error.message,
+    }),
   }),
 );
   
