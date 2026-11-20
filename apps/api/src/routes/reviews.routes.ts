@@ -11,3 +11,5 @@ reviewsRouter.get("/due", requireAuth, async (request, response, next) => {
 
   response.status(200).json({ dueReviews });
 })
+
+export default reviewsRouter;

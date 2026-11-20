@@ -3,6 +3,7 @@ import express from "express";
 import authRouter from "./routes/auth.routes.js";
 import waitlistRouter from "./routes/waitlist.routes.js";
 import decksRouter from "./routes/decks.routes.js";
+import reviewsRouter from "./routes/reviews.routes.js"
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -33,4 +34,6 @@ app.use("/auth", authRouter);
 app.use("/waitlist", waitlistRouter)
 
 app.use("/decks", decksRouter)
+
+app.use("/reviews", reviewsRouter)
 export default app;
