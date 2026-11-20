@@ -1,7 +1,9 @@
 import { useAuth } from "@/auth/use-auth";
+import { getDueReviews } from "@/lib/api/reviews";
 
-function WelcomeSection() {
+async function WelcomeSection() {
   const { user } = useAuth();
+  const { reviews } = await getDueReviews()
   return(
     <section className="space-y-2">
       <p className="text-sm text-muted-foreground">Good evening, {user?.firstName}</p>
@@ -11,7 +13,7 @@ function WelcomeSection() {
       </h1>
 
       <p className="text-muted-foreground">
-      You have 18 cards waiting today.
+      You have {reviews?.count} cards waiting today.
       </p>
     </section>
   )
