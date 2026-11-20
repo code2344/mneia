@@ -75,16 +75,13 @@ async function getFSRSCard(cardId: string, userId: string) {
 }
 
 export async function fsrsReview(userId: string, cardId: string, ratingValue: 1 | 2 | 3 | 4) {
-  logger.info({ cardId, userId }, "review: before scheduler");
   const scheduler = await DefaultScheduler();
   const rating = ratingMap[ratingValue];
 
-  logger.info({ cardId, userId }, "review: before card lookup");
   
   const getFsrsCard = (await getFSRSCard(cardId, userId));
   const fsrsCard = getFsrsCard.card;
   const stateBefore = getFsrsCard.stateBefore;
-  logger.info({ cardId, userId }, "review: after card lookup");
   
   if (rating === undefined) {
       throw new AppError("Invalid rating", 400);
@@ -96,12 +93,9 @@ export async function fsrsReview(userId: string, cardId: string, ratingValue: 1 
     now: new Date(),
   });
   
-  logger.info({ cardId, userId }, "review: after fsrs calculation, before transaction");
-  
   const reviewedAt = new Date();
   
   await prisma.$transaction(async (transaction) => {
-    logger.info({ cardId, userId }, "review: inside transaction");
     await transaction.reviews.create({
       data: {
         card_id: cardId,
@@ -135,7 +129,7 @@ export async function fsrsReview(userId: string, cardId: string, ratingValue: 1 
     });
   });
 
-  logger.info({ cardId, userId }, "review: after transaction");
+  logger.info({ cardId, userId }, "Review successfully saved");
   
   return {
     cardId,
