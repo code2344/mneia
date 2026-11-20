@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createDeckSchema } from "./deck.schemas.js";
+import { createDeckSchema } from "../../validation/deck.schemas.js";
 
 describe("createDeckSchema", () => {
   it("accepts a valid deck", () => {

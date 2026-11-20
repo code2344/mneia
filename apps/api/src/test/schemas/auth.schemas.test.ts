@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { registerSchema, loginSchema } from "./auth.schemas.js";
+import { registerSchema, loginSchema } from "../../validation/auth.schemas.js";
 
 describe("registerSchema", () => {
   /* notes: the cases are: name(exists, doesn't exist, null, too long), 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createCardSchema } from "./card.schemas.js";
+import { createCardSchema } from "../../validation/card.schemas.js";
 
 describe("createCardSchema", () => {
   it("accepts a valid card", () => {

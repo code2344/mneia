@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { idSchema } from "./id.schemas.js";
+import { idSchema } from "../../validation/id.schemas.js";
 
 describe("idSchema", () => {
   it("accepts a valid UUID", () => {
